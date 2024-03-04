@@ -69,6 +69,16 @@ func main() {
 		Polls: polls,
 	}
 
+	modalHandler := func(w http.ResponseWriter, r *http.Request) {
+		// Assuming modal.html is the template that contains your modal's HTML
+		templ := template.Must(template.ParseFiles("modal.html"))
+		if err := templ.Execute(w, nil); // Pass any necessary data your modal might need
+		err != nil {
+			log.Printf("Error executing modal template: %v", err)
+			http.Error(w, "Error generating modal content", http.StatusInternalServerError)
+		}
+	}
+
 	serveHandler := func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseFiles("index.html"))
 		if err := templ.Execute(w, pageData); err != nil {
@@ -78,6 +88,7 @@ func main() {
 	}
 
 	http.HandleFunc("/", serveHandler)
+	http.HandleFunc("/modal", modalHandler)
 
 	log.Printf("Server starting on port %s", port)
 	log.Fatal(http.ListenAndServe(port, nil))
