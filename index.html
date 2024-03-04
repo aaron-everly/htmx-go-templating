@@ -3,21 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App</title>
-</head>
-<body>
-    <h2>Polls</h3>
-    {{range .Polls}}
-    
-    <h3>{{.Title}}</h4>
-    <ul>
-        <li><strong>Description: </strong> <span>{{.Description}}</span></li>
-        <li><strong>Votes: </strong> <span>{{.Votes}}</span></li>
-        <li><strong>Created: </strong> <span>{{.CreatedAt}}</span></li>
-        <li><strong>Last updated: </strong> <span>{{.UpdatedAt}}</span></li>
-    </ul>
-    <hr>
+    <title>HTMX Go Templating</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .navbar {
+            width: 80px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #2d3748;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
 
-    {{end}}
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: calc(100% - 40px);
+        }
+
+        .navbar li {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            height: 60px;
+        }
+
+        .navbar a {
+            color: #cbd5e0;
+            text-decoration: none;
+        }
+
+        .navbar-icon-container {
+            width: 80px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar-icon-container:hover {
+            background-color: rgba(19, 255, 176, 0.159);
+        }
+
+        .navbar-icon {
+            width: 50%;
+            height: 50%;
+            fill: #cbd5e0;
+        }
+
+        /* Slide up animation */
+        .poll {
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white p-4 font-mono">
+    <nav class="navbar">
+        <ul>
+            <li>
+                <div class="navbar-icon-container">
+                    <a href="#">1</a>
+                </div>
+            </li>
+            <li>
+                <div class="navbar-icon-container">
+                    <a href="#">2</a>
+                </div>
+            </li>
+            <li>
+                <div class="navbar-icon-container">
+                    <a href="#">3</a>
+                </div>
+            </li>
+            <li>
+                <div class="navbar-icon-container">
+                    <a href="#">4</a>
+                </div>
+            </li>
+            <li>
+                <div class="navbar-icon-container">
+                    <a href="#">5</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="ml-32">
+        <p class="text-2xl font-bold my-4">Polls</p>
+
+        {{range .Polls}}
+        <div class="poll bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700 animate__animated">
+            <p class="text-lg text-green-400">{{.Title}}</p>
+            <ul class="mt-4">
+                <li class="mb-2">
+                    <span class="text-gray-400">Description:</span> {{.Description}}
+                </li>
+                <li class="mb-2">
+                    <span class="text-gray-400">Votes:</span> {{.Votes}}
+                </li>
+                <li class="mb-2">
+                    <span class="text-gray-400">Published:</span> {{if .Published}} Yes {{else}} No {{end}}
+                </li>
+                <li class="mb-2">
+                    <span class="text-gray-400">Created:</span> {{.CreatedAt}}
+                </li>
+                <li>
+                    <span class="text-gray-400">Last updated:</span> {{.UpdatedAt}}
+                </li>
+            </ul>
+        </div>
+        {{end}}
+    </div>
 </body>
 </html>
