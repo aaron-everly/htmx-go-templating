@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+</head>
+<body>
+    <h2>Polls</h3>
+    {{range .Polls}}
+    
+    <h3>{{.Title}}</h4>
+    <ul>
+        <li><strong>Description: </strong> <span>{{.Description}}</span></li>
+        <li><strong>Votes: </strong> <span>{{.Votes}}</span></li>
+        <li><strong>Created: </strong> <span>{{.CreatedAt}}</span></li>
+        <li><strong>Last updated: </strong> <span>{{.UpdatedAt}}</span></li>
+    </ul>
+    <hr>
+
+    {{end}}
+</body>
+</html>
