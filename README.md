@@ -1,5 +1,8 @@
 ### Exploration of using a combination of go, postgres, prisma, and htmx to develop a web app. 
 
+### How to
+`go run main.go`
+
 #### To-do's:
 - Hook up endpoints, build out crud, make interesting
 
